@@ -1,0 +1,34 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python src\load_data.py --config=params.yaml
+    deps:
+    - path: data_given\winequality.csv
+      md5: ccc8d3507eb151f53f760d36abdef888
+      size: 91998
+    - path: src\get_data.py
+      md5: 2b353e20da93455e421b538900c3d530
+      size: 723
+    - path: src\load_data.py
+      md5: 0b625f4af3c9c0814d056f0fdf1a5039
+      size: 610
+    outs:
+    - path: data\raw\winequality.csv
+      md5: d98e8f2eca228c11c4de1cc96866a54d
+      size: 93598
+  split_data:
+    cmd: python src\split_data.py --config=params.yaml
+    deps:
+    - path: data\raw\winequality.csv
+      md5: d98e8f2eca228c11c4de1cc96866a54d
+      size: 93598
+    - path: src\split_data.py
+      md5: b9fe978727f5369adac7b19d02951b95
+      size: 1077
+    outs:
+    - path: data\processed\test_winequality.csv
+      md5: 01718da3bd6e206060ed00667ca1a389
+      size: 18831
+    - path: data\processed\train_winequality.csv
+      md5: 4bccf4d668cdc60115de42ba74d416ab
+      size: 74913
